@@ -52,3 +52,15 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Virtual environment
+bin/
+include/
+lib/
+
+# Database
+*.sqlite3
+
+# Environment variables
+.env
+
