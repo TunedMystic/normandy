@@ -1,6 +1,6 @@
 from fabric.api import local
 
-def push(msg, remote = "origin", branch = "master"):
+def push(msg, remote = "site", branch = "master"):
   local("git add -A")
   local("git commit -m '%s'" %(msg))
   local("git push %s %s" %(remote, branch))
