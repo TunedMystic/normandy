@@ -1,6 +1,9 @@
 from fabric.api import local
 
-def push(msg, remote = "site", branch = "master"):
+def push(msg, remote = "origin", branch = "master"):
+  """
+  Git add, git commit, and git push.
+  """
   local("git add -A")
   local("git commit -m '%s'" %(msg))
   local("git push %s %s" %(remote, branch))
@@ -14,6 +17,9 @@ def db(name = "db.sqlite3"):
   local("python manage.py migrate")
 
 def run(port = 8888):
+  """
+  Run the Django dev server.
+  """
   local("python manage.py runserver 0.0.0.0:%s" %(port))
 
 def clean():     
