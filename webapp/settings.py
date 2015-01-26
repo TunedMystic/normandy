@@ -10,8 +10,12 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dotenv
 from getenv import env
+
+dotenv.read_dotenv(dotenv = ".env")
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,7 +44,7 @@ INSTALLED_APPS = (
     # Third-party apps.
     
     # Custom apps.
-    "tweets"
+    "tweets",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -84,13 +88,24 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'templates'),
+)
 
 
 # Django-Debug-Toolbar Settings
-DDJT = True
-if DEBUG and DDJT:
-  INSTALLED_APPS += ("debug_toolbar.apps.DebugToolbarConfig",)
-  
-  INTERNAL_IPS = (env("MY_IP", "127.0.0.1"),)
+if DEBUG:
+  INSTALLED_APPS += ("debug_toolbar",)
+  MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+  show_toolbar = lambda x: True
+  DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'webapp.settings.show_toolbar',
+  }
