@@ -64,3 +64,6 @@ lib/
 # Environment variables
 .env
 
+# Staticfiles Dirs
+staticfiles/
+
