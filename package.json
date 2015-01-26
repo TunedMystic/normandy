@@ -1,0 +1,21 @@
+{
+  "name": "Webapp",
+  "version": "0.0.1",
+  "description": "Django webapp.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TunedMystic/restless.git"
+  },
+  "author": "jsanweb",
+  "license": "GNU",
+  "homepage": "https://github.com/TunedMystic/restless",
+  "keywords": [
+    "Django"
+  ],
+  "dependencies": {
+    "yuglify": "^0.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {}
+}

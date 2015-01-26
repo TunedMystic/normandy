@@ -26,6 +26,13 @@ def run(port = 8888):
   local("python manage.py runserver 0.0.0.0:%s" %(port))
 
 @task
+def prod(port = 8888):
+  """
+  Run the Django server with production settings.
+  """
+  local("python manage.py runserver 0.0.0.0:%s --settings=webapp.settings.prod" %(port))
+
+@task
 def gun(host = "0.0.0.0", port = "8888"):
   """
   Run Gunicorn web server.

@@ -11,7 +11,6 @@ import os
 DEBUG = TEMPLATE_DEBUG = True
 # --- /Debug Settings ---
 
-
 # Django-Debug-Toolbar Settings
 
 show_toolbar = lambda x: True
@@ -23,3 +22,4 @@ MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 DEBUG_TOOLBAR_CONFIG = {
   'SHOW_TOOLBAR_CALLBACK': 'webapp.settings.dev.show_toolbar',
 }
+

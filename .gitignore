@@ -67,3 +67,5 @@ lib/
 # Staticfiles Dirs
 staticfiles/
 
+# Npm
+node_modules/

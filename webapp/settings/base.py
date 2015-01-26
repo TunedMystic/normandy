@@ -74,6 +74,7 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
+  "pipeline",
 )
 
 CUSTOM_APPS = (
@@ -163,7 +164,8 @@ TEMPLATE_DIRS = (
 
 # --- Static configuration (CSS, JavaScript, Images) ---
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATIC_ROOT = os.path.join(ROOT_DIR, 'staticfiles')
 
@@ -177,6 +179,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    "pipeline.finders.PipelineFinder",
 )
 # --- /Static configuration (CSS, JavaScript, Images) ---
 
@@ -212,96 +215,74 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 # --- /Testing Configuration ---
 
 
+# --- Pipeline Configuration ---
+# https://django-pipeline.readthedocs.org/en/latest/configuration.html
+PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+
+PIPELINE_JS = {
+    'bundle': {
+        'source_filenames': (
+          'tweets/js/abc.js',
+        ),
+        'output_filename': 'tweets/js/bundle.js',
+    }
+}
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
+# --- /Pipeline Configuration ---
+
+
 # --- Logging Configuration ---
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'filters': {
         'production_only': {
             '()': 'django.utils.log.RequireDebugFalse',
-        },
+         },
         'development_only': {
             '()': 'django.utils.log.RequireDebugTrue',
-        },
-        'readable_sql': {
-            '()': 'project_runpy.ReadableSqlFilter',
-        },
-    },
+         },
+     },
     'formatters': {
-        'verbose': {
-            'format': '[%(asctime)s] %(levelname)-8s [%(name)s:%(lineno)s] %(message)s',
-            'datefmt': '%m/%d/%Y %H:%M:%S',
-        },
-        'simple': {
-            'format': '%(levelname)-8s [%(name)s:%(lineno)s] %(message)s',
+        'standard': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
         },
     },
     'handlers': {
         'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
+            'level':'DEBUG',
+            'class':'django.utils.log.NullHandler',
         },
-        'default': {
-            'level': 'DEBUG',
-            'class': 'config.lib.colorstreamhandler.ColorStreamHandler',
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(ROOT_DIR, 'logs/log.log'),
+            'maxBytes': 50000,
+            'backupCount': 2,
+            'formatter': 'standard',
         },
-        'console_dev': {
-            'level': 'DEBUG',
-            'filters': ['development_only'],
-            'class': 'config.lib.colorstreamhandler.ColorStreamHandler',
-            'formatter': 'simple',
+        'console':{
+            'level':'INFO',
+            'class':'logging.StreamHandler',
+            'formatter': 'standard'
         },
-        'console_prod': {
-            'level': 'INFO',
-            'filters': ['production_only'],
-            'class': 'config.lib.colorstreamhandler.ColorStreamHandler',
-            'formatter': 'simple',
-        },
-        'file_log': {
-            'level': 'DEBUG',
-            'filters': ['development_only'],
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': join(ROOT_DIR, 'logs/log.log'),
-            'maxBytes': 1024 * 1024,
-            'backupCount': 3,
-            'formatter': 'verbose',
-        },
-        'file_sql': {
-            'level': 'DEBUG',
-            'filters': ['development_only'],
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': join(ROOT_DIR, 'logs/sql.log'),
-            'maxBytes': 1024 * 1024,
-            'backupCount': 3,
-            'formatter': 'verbose',
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['production_only'],
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        },
-    },
-    # Catch-all modules that use logging
-    # Writes to console and file on development, only to console on production
-    'root': {
-        'handlers': ['console_dev', 'console_prod', 'file_log'],
-        'level': 'DEBUG',
     },
     'loggers': {
-        # Write all SQL queries to a file
+        'django': {
+            'handlers':['console', 'logfile'],
+            'propagate': True,
+            'level':'WARN',
+        },
         'django.db.backends': {
-            'handlers': ['file_sql'],
-            'filters': ['readable_sql'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False,
         },
-        # Email admins when 500 error occurs
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
+        'tweets': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
         },
     }
 }
