@@ -251,9 +251,10 @@ LOGGING = {
         },
     },
     'handlers': {
-        'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['production_only'],
+            'class': 'django.utils.log.AdminEmailHandler'
         },
         'logfile': {
             'level':'DEBUG',
@@ -274,6 +275,11 @@ LOGGING = {
             'handlers':['console', 'logfile'],
             'propagate': True,
             'level':'WARN',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
         },
         'django.db.backends': {
             'handlers': ['console'],

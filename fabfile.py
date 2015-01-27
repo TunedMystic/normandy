@@ -23,10 +23,10 @@ def run(port = 8888):
   """
   Run the Django dev server.
   """
-  local("python manage.py runserver 0.0.0.0:%s" %(port))
+  local("python manage.py runserver 0.0.0.0:%s --settings=webapp.settings.dev" %(port))
 
 @task
-def prod(port = 8888):
+def runp(port = 8888):
   """
   Run the Django server with production settings.
   """
@@ -37,7 +37,14 @@ def gun(host = "0.0.0.0", port = "8888"):
   """
   Run Gunicorn web server.
   """
-  local("gunicorn -b %s:%s webapp.wsgi" %(host, port))
+  local("gunicorn -b %s:%s --env DJANGO_SETTINGS_MODULE=webapp.settings.dev webapp.wsgi" %(host, port))
+
+@task
+def gunp(host = "0.0.0.0", port = "8888"):
+  """
+  Run Gunicorn web server with production settings.
+  """
+  local("gunicorn -b %s:%s --env DJANGO_SETTINGS_MODULE=webapp.settings.prod webapp.wsgi" %(host, port))
 
 @task
 def clean():     
