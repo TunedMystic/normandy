@@ -51,7 +51,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_SUBJECT_PREFIX = '[%s] ' % PROJECT_NAME
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
-SERVER_EMAIL = 'Darth <vader@%s>' % PROJECT_DOMAIN
+SERVER_EMAIL = 'Darth <vader@%s>' % (PROJECT_DOMAIN)
 # --- /Email Configuration ---
 
 
