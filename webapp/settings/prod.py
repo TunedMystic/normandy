@@ -6,6 +6,7 @@ Django production settings.
 from base import *
 
 import os
+from urlparse import urlparse
 from getenv import env
 
 # Debug Settings
@@ -37,3 +38,25 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', '')
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
 EMAIL_USE_TLS = True
 # --- /Email Configuration ---
+
+
+# --- Cache Configuration ---
+# https://docs.djangoproject.com/en/dev/ref/settings/#caches
+cacheUrl = urlparse(env("REDISTOGO_URL", "127.0.0.1:6379"))
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': "%s:%s" %(cacheUrl.hostname, cacheUrl.port),
+        'OPTIONS': {
+            'DB': 1,
+            'PASSWORD': cacheUrl.password,
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            }
+        },
+    },
+}
+# --- /Cache Configuration ---

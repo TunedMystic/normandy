@@ -122,6 +122,16 @@ DATABASES = {
 # --- /Database Configuration ---
 
 
+# --- Cache Configuration ---
+# https://docs.djangoproject.com/en/dev/ref/settings/#caches
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+# --- /Cache Configuration ---
+
+
 # --- Internationalization Configuration ---
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 LANGUAGE_CODE = 'en-us'
