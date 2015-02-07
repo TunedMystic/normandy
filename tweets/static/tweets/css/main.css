@@ -1,0 +1,237 @@
+.affix {
+  position: fixed;
+  top: 0;
+  height: 50px;
+  z-index: 99;
+  width: 100%;
+}
+
+.monq-verylight {
+  color: #E6EEFD !important
+}
+a.monq-verylight:hover {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+a.monq-verylight h4:hover {
+  color: #ffffff !important;
+}
+#page-header li .monq-light :hover {
+  color: #DEF5FA !important;
+}
+#page-footer .monq-verylight {
+  color: #96A4C0 !important;
+}
+#page-footer .monq-verylight a{
+  color: #3FA898 !important;
+}
+#page-footer .monq-verylight a:hover{
+  text-decoration: none;
+  color: #87BFC7 !important;
+}
+.credits-outer .monq-verylight {
+  color: #515967 !important;
+}
+.monq-light {
+  color: #D6DDEC !important
+}
+
+a.monq-light:hover {
+  color: #ffffff !important;
+}
+#page-header {
+  background-color: #36274b;
+  background-color: #56316F;
+  border: none;
+}
+#page-header.navbar {
+  margin-bottom: 0px;
+}
+#page-sticky-navbar {
+  border: none;
+  margin-bottom: 40px;
+}
+.navbar {
+  border-radius: 0px;
+}
+.navbar-brand-title {
+  font-size: 30px;
+}
+.navbar-brand-img {
+  padding: 0px 15px;
+}
+.navbar-logo {
+  /*padding: 18px 0px;*/
+  padding-top: 18px;
+  margin-bottom: 18px;
+}
+.navbar-left .navbar-btn.bleft{
+  margin-left: 5px;
+}
+.navbar-left .navbar-btn.bright{
+  margin-right: 5px;
+}
+p.tagline {
+  margin-left: 30px !important;
+}
+.topNavLinks {
+  margin-right: -25px;
+}
+.topNavLinks li h3 {
+  margin: 0px 0px;
+  padding: 15px 15px;
+  font-size: 16px;
+}
+.topNavLinks li h3 strong a:hover {
+  text-decoration: none;
+}
+.userAuthButton { 
+  color: #FFFFFF; 
+  background-color: #7074C5; 
+  border-color: #373970; 
+} 
+ 
+.userAuthButton:hover, 
+.userAuthButton:focus, 
+.userAuthButton:active, 
+.userAuthButton.active, 
+.open .dropdown-toggle.userAuthButton { 
+  color: #FFFFFF; 
+  background-color: #6468B3; 
+  border-color: #373970; 
+} 
+ 
+.userAuthButton:active, 
+.userAuthButton.active, 
+.open .dropdown-toggle.userAuthButton { 
+  background-image: none; 
+} 
+ 
+.userAuthButton.disabled, 
+.userAuthButton[disabled], 
+fieldset[disabled] .userAuthButton, 
+.userAuthButton.disabled:hover, 
+.userAuthButton[disabled]:hover, 
+fieldset[disabled] .userAuthButton:hover, 
+.userAuthButton.disabled:focus, 
+.userAuthButton[disabled]:focus, 
+fieldset[disabled] .userAuthButton:focus, 
+.userAuthButton.disabled:active, 
+.userAuthButton[disabled]:active, 
+fieldset[disabled] .userAuthButton:active, 
+.userAuthButton.disabled.active, 
+.userAuthButton[disabled].active, 
+fieldset[disabled] .userAuthButton.active { 
+  background-color: #7074C5; 
+  border-color: #373970; 
+} 
+ 
+.userAuthButton .badge { 
+  color: #7074C5; 
+  background-color: #FFFFFF; 
+}
+#page-footer {
+  background-color: #E5E5E5;
+  background-color: #100f18;
+  margin-top: 25px;
+}
+#page-footer .container-top {
+  padding: 20px 0px;
+}
+ul.footer-links {
+  margin-bottom: 0px;
+}
+ul.footer-links li {
+  padding: 0px 15px;
+}
+.footer-img {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+p.credits {
+  
+}
+.social-icons {
+  margin-top: 15px;
+}
+.social-icons li {
+  margin-left: 4px;
+  margin-left: 4px;
+}
+.social-icon {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+
+hr.fancy-hr {
+  height: 12px;
+  border: 0;
+  box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);
+  margin: 0px 0px;
+}
+
+#alertBox {
+  display: none;
+  padding-bottom: 0px;
+}
+
+#successBox {
+  display: none;
+  padding-bottom: 0px;
+}
+
+@media(max-width:450px) {
+  .tagline {
+    clear: both;
+    display: block;
+    text-align: center;
+    margin: 0px auto;
+    padding-top: 15px;
+    padding-bottom: 10px;
+  }
+}
+
+@media(max-width:650px) {
+  .navbar-webpage {
+    display: none;
+  }
+}
+
+@media(max-width:767px){
+  p.tagline em {
+    padding: 0px 15px;
+  }
+  p.tagline {
+    display: none;
+  }
+}
+@media(min-width:768px){
+  .login-button {
+    margin-right: 0px;
+  }
+  .login-button-authenticated {
+    padding-right: 0px;
+  }
+  p.tagline {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .social-icons li {
+    margin-left: 12px;
+  }
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+@media(min-width:992px){}
+@media(max-width:992px){
+  .social-icon {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+  }
+}
+@media(min-width:1200px){}

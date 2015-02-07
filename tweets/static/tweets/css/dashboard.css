@@ -1,0 +1,116 @@
+.results-list {
+  overflow: auto;
+}
+
+.results-object-outer {
+  padding-top: 20px;
+}
+
+.result-object {
+  
+}
+
+.results-object p {
+  font-size: 16px;
+}
+
+.results-object .author {
+  font-weight: bold;
+}
+
+.results-object .rtop {
+  margin-bottom: 4px;
+  padding-left: 2px;
+}
+
+.results-object .rbottom {
+  /*margin-bottom: 4px;*/
+  padding-left: 2px;
+  margin-top: -6px;
+}
+
+.results-object-preview {
+  
+}
+
+.results-object-preview pre{
+  height: 160px;
+  overflow: hidden;
+  word-wrap: normal;
+}
+
+.paginator-block {
+  padding-top: 24px;
+  margin-bottom: 4px;
+}
+
+.paginator-block a {
+  font-size: 13px;
+}
+
+.paginator-block .previous {
+  margin-right: 6px;
+}
+
+.paginator-block .next {
+  margin-left: 6px;
+}
+
+/* Search Form page */
+.searchFormDiv {
+  padding-top: 40px;
+  padding-bottom: 240px;
+}
+
+.searchFormDiv h2 {
+  margin-bottom: 40px;
+}
+
+/* Snippet password form */
+.passwordButton {
+  margin-left: 10px;
+}
+
+@media(max-width:767px){
+  .passwordButton {
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+}
+
+/* User Detail Snippets Page */
+.user-detail-title li {
+  vertical-align: middle;
+}
+
+.user-detail-title li img {
+  background-color: #222;
+  padding: 3px;
+}
+
+.user-detail-title li h2{
+  margin: 0px;
+}
+
+/* User Snippet Likes Page */
+.private-snippet-block {
+  height: 160px;
+  background-color: #93B2BE;
+  border-radius: 4px;
+  margin: 0 0 10px;
+  padding-top: 16px;
+  color: #23232C;
+}
+
+.private-snippet-block {
+  font-size: 60px;
+}
+
+.private-snippet-block h3 {
+  margin: 0px 0px;
+  margin-top: -4px;
+}
+
+.language-link {
+  cursor: pointer;
+}

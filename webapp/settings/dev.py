@@ -1,7 +1,6 @@
 """
 Django development settings.
 """
-#from __future__ import absolute_import
 
 from base import *
 
@@ -13,7 +12,7 @@ DEBUG = TEMPLATE_DEBUG = True
 
 
 # --- Email Configuration ---
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # --- /Email Configuration ---
 

@@ -10,6 +10,7 @@
     
     {% block styles %}
       <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+      {% stylesheet 'bundleCSS' %}
     {% endblock %}
     
     {% block topscripts %}{% endblock %}
@@ -28,7 +29,7 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-      {% javascript 'bundle' %}
+      {% javascript 'bundleJS' %}
     {% endblock %}
   </body>
 </html>

@@ -44,7 +44,7 @@ DEBUG = TEMPLATE_DEBUG = True
 
 
 # --- Email Configuration ---
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
@@ -56,12 +56,12 @@ SERVER_EMAIL = 'Darth <vader@%s>' % (PROJECT_DOMAIN)
 
 
 # --- Manager Configuration ---
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#admins
+# https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = (
     ('Darth Vader', env("ADMIN_EMAIL", "")),
 )
 
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#managers
+# https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 # --- /Manager Configuration ---
 
@@ -200,7 +200,6 @@ TEMPLATE_DIRS = (
 
 # --- Static configuration (CSS, JavaScript, Images) ---
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATIC_ROOT = os.path.join(ROOT_DIR, 'staticfiles')
@@ -253,14 +252,25 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # --- Pipeline Configuration ---
 # https://django-pipeline.readthedocs.org/en/latest/configuration.html
+
+PIPELINE_CSS = {
+    'bundleCSS': {
+        'source_filenames': (
+          'tweets/css/dashboard.css',
+          'tweets/css/main.css',
+        ),
+        'output_filename': 'tweets/css/scrolls.css',
+    },
+}
+
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
 
 PIPELINE_JS = {
-    'bundle': {
+    'bundleJS': {
         'source_filenames': (
           'tweets/js/abc.js',
         ),
-        'output_filename': 'tweets/js/bundle.js',
+        'output_filename': 'tweets/js/spells.js',
     }
 }
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yuglify.YuglifyCompressor'
