@@ -13,11 +13,11 @@ class UserSerializer(serializers.ModelSerializer):
   
   class Meta:
     model = User
-    fields = ("username", "email", "tweet_set")
+    fields = ("url", "username", "email", "tweet_set")
 
 
 class TweetSerializer(serializers.ModelSerializer):
-  #user = serializers.ReadOnlyField(source = "user.username")
+  user_name = serializers.ReadOnlyField(source = "user.username")
   user = serializers.HyperlinkedRelatedField(
     view_name = "user-detail",
     read_only = True
@@ -25,4 +25,4 @@ class TweetSerializer(serializers.ModelSerializer):
   
   class Meta:
     model = Tweet
-    fields = ("url", "user", "text", "timestamp")
+    fields = ("url", "user_name", "user", "text", "timestamp")
