@@ -77,6 +77,9 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
+  "rest_framework",
+  # Token Authentication
+  #"rest_framework.authtoken",
   "pipeline",
 )
 
@@ -134,6 +137,25 @@ CACHES = {
     }
 }
 # --- /Cache Configuration ---
+
+
+# --- Rest_Framework Configuration ---
+# http://www.django-rest-framework.org/api-guide/settings/
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser'
+    ),
+    'PAGINATE_BY': 10,
+    'PAGINATE_BY_PARAM': 'page_size',
+    'MAX_PAGINATE_BY': 50,
+}
+# --- /Rest_Framework Configuration ---
 
 
 # --- Internationalization Configuration ---

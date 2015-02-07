@@ -5,7 +5,7 @@ class Tweet(models.Model):
   """
   A simple tweet model.
   """
-  user = models.ForeignKey(settings.AUTH_USER_MODEL, unique = True)
+  user = models.ForeignKey(settings.AUTH_USER_MODEL)
   text = models.CharField(max_length = 140, blank = False)
   timestamp = models.DateTimeField(auto_now_add = True)
   
