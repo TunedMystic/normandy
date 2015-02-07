@@ -39,6 +39,14 @@ EMAIL_USE_TLS = True
 # --- /Email Configuration ---
 
 
+# --- Database Configuration ---
+# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+DATABASES = {
+  "default": dj_database_url.config(default = "postgres://action:@127.0.0.1:5432/webapp")
+}
+# --- /Database Configuration ---
+
+
 # --- Cache Configuration ---
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
 cacheUrl = urlparse(env("REDISTOGO_URL", "127.0.0.1:6379"))

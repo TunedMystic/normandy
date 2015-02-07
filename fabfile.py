@@ -1,4 +1,4 @@
-from fabric.api import local, task
+from fabric.api import local, task, execute
 
 @task
 def push(msg, remote = "origin", branch = "master"):
@@ -17,6 +17,28 @@ def db(name = "db.sqlite3"):
   local("rm -rf %s" %(name))
   local("python manage.py makemigrations")
   local("python manage.py migrate")
+
+@task
+def createdb(role = "action", name = "webapp"):
+  """
+  Create a new postgres database.
+  """
+  local("psql -U %s -c 'CREATE DATABASE %s;'" %(role, name.lower()))
+
+@task
+def deletedb(role = "action", name = "webapp"):
+  """
+  Drop postgres database.
+  """
+  local("psql -U %s -c 'DROP DATABASE %s;'" %(role, name.lower()))
+
+@task 
+def gresdb(role = "action", name = "webapp"):
+  """
+  Delete a postgres database and create a new one.
+  """
+  deletedb(role = role, name = name.lower())
+  createdb(role = role, name = name.lower())
 
 @task
 def run(port = 8888):

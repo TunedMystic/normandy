@@ -1,15 +1,15 @@
 {
   "name": "Webapp",
   "version": "0.0.1",
-  "description": "Django webapp.",
+  "description": "A Django project template",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TunedMystic/restless.git"
+    "url": "https://github.com/TunedMystic/Normandy.git"
   },
   "author": "jsanweb",
   "license": "GNU",
-  "homepage": "https://github.com/TunedMystic/restless",
+  "homepage": "https://github.com/TunedMystic/Normandy",
   "keywords": [
     "Django"
   ],
