@@ -1,4 +1,4 @@
-from fabric.api import local, task, execute
+from fabric.api import local, task, warn_only
 
 @task
 def push(msg, remote = "origin", branch = "master"):
@@ -19,26 +19,33 @@ def db(name = "db.sqlite3"):
   local("python manage.py migrate")
 
 @task
-def createdb(role = "action", name = "webapp"):
+def createdb(role = "action", name = "webapp", s = "p"):
   """
   Create a new postgres database.
   """
-  local("psql -U %s -c 'CREATE DATABASE %s;'" %(role, name.lower()))
+  with warn_only():
+    local("psql -U %s -c 'CREATE DATABASE %s;'" %(role, name.lower()))
+  django_settings = "--settings=webapp.settings.dev"
+  if s == "p":
+    django_settings = "--settings=webapp.settings.prod"
+  local("python manage.py makemigrations %s" %(django_settings))
+  local("python manage.py migrate %s" %(django_settings))
 
 @task
 def deletedb(role = "action", name = "webapp"):
   """
   Drop postgres database.
   """
-  local("psql -U %s -c 'DROP DATABASE %s;'" %(role, name.lower()))
+  with warn_only():
+    local("psql -U %s -c 'DROP DATABASE %s;'" %(role, name.lower()))
 
 @task 
-def gresdb(role = "action", name = "webapp"):
+def gresdb(role = "action", name = "webapp", s = "p"):
   """
   Delete a postgres database and create a new one.
   """
   deletedb(role = role, name = name.lower())
-  createdb(role = role, name = name.lower())
+  createdb(role = role, name = name.lower(), s = s)
 
 @task
 def run(port = 8888):
