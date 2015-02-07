@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 import os
+import dj_database_url
 import dotenv
 from getenv import env
 
@@ -121,10 +122,7 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 # --- Database Configuration ---
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(ROOT_DIR, 'db.sqlite3'),
-    }
+  "default": dj_database_url.parse("sqlite:///" + os.path.join(ROOT_DIR, "db.sqlite3"))
 }
 # --- /Database Configuration ---
 
