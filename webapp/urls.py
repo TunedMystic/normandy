@@ -9,3 +9,6 @@ urlpatterns = patterns('',
   url(r"", include("tweets.urls")),
   url(r'^admin/', include(admin.site.urls)),
 )
+
+handler404 = "misc.views.handler404"
+handler500 = "misc.views.handler500"
