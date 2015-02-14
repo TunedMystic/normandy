@@ -47,20 +47,18 @@ def db(name = "db.sqlite3"):
   Delete the (sqlite3) database and create a new one.
   """
   local("rm -rf %s" %(name))
-  local("python manage.py makemigrations")
-  local("python manage.py migrate")
+  local("honcho run python manage.py makemigrations")
+  local("honcho run python manage.py migrate")
 
-def createdb(role = "action", name = "webapp", s = "p"):
+@task
+def migratedb(role = "action", name = "webapp"):
   """
   Create a new postgres database.
   """
   with warn_only():
     local("psql -U %s -c 'CREATE DATABASE %s;'" %(role, name.lower()))
-  django_settings = "--settings=webapp.settings.dev"
-  if s == "p":
-    django_settings = "--settings=webapp.settings.prod"
-  local("python manage.py makemigrations %s" %(django_settings))
-  local("python manage.py migrate %s" %(django_settings))
+  local("honcho run python manage.py makemigrations")
+  local("honcho run python manage.py migrate")
 
 def deletedb(role = "action", name = "webapp"):
   """
@@ -70,13 +68,14 @@ def deletedb(role = "action", name = "webapp"):
     local("psql -U %s -c 'DROP DATABASE %s;'" %(role, name.lower()))
 
 @task 
-def gresdb(role = "action", name = "webapp", s = "p"):
+def gresdb(role = "action", name = "webapp"):
   """
   Delete a postgres database and create a new one.
   """
   deletedb(role = role, name = name.lower())
-  createdb(role = role, name = name.lower(), s = s)
+  migratedb(role = role, name = name.lower())
 
+@task
 def django_server():
   """
   Run the Django dev server.
@@ -84,6 +83,7 @@ def django_server():
   services("start")
   local("python manage.py runserver 0.0.0.0:$PORT")
 
+@task
 def gunicorn_server():
   """
   Run the Gunicorn web server.
