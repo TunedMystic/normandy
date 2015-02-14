@@ -3,14 +3,15 @@ Django production settings.
 """
 
 from base import *
-
 import os
 from urlparse import urlparse
 from getenv import env
 
-# Debug Settings
 
+# --- Debug Settings ---
 DEBUG = TEMPLATE_DEBUG = False
+# --- /Debug Settings ---
+
 
 # --- Host Configuration
 # https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production

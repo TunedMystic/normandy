@@ -10,10 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 import os
 import dj_database_url
-import dotenv
 from getenv import env
-
-dotenv.read_dotenv(dotenv = ".env")
 
 
 # --- Project Configuration ---

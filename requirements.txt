@@ -13,6 +13,7 @@ ecdsa==0.12
 futures==2.2.0
 gunicorn==19.1.1
 hiredis==0.1.5
+honcho==0.6.4
 httpie==0.9.0
 paramiko==1.15.2
 psycopg2==2.5.4

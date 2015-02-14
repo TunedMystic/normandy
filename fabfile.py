@@ -1,5 +1,37 @@
 from fabric.api import local, task, warn_only
 
+def service_database(action = "start"):
+  """
+  Run the database service.
+  """
+  with warn_only():
+    # Database command line: psql
+    if action == "stop":
+      local("parts stop postgresql")
+    else:
+      local("parts start postgresql")
+
+def service_redis(action = "start"):
+  """
+  Run the redis service.
+  """
+  with warn_only():
+    # Redis command line: redis-cli
+    if action == "stop":
+      local("parts stop redis")
+    else:
+      local("parts start redis")
+
+@task
+def services(action = "start"):
+  """
+  Start/Stop all external services.
+  """
+  if action != "start":
+    action = "stop"
+  service_database(action)
+  service_redis(action)
+
 @task
 def push(msg, remote = "origin", branch = "master"):
   """
@@ -18,7 +50,6 @@ def db(name = "db.sqlite3"):
   local("python manage.py makemigrations")
   local("python manage.py migrate")
 
-@task
 def createdb(role = "action", name = "webapp", s = "p"):
   """
   Create a new postgres database.
@@ -31,7 +62,6 @@ def createdb(role = "action", name = "webapp", s = "p"):
   local("python manage.py makemigrations %s" %(django_settings))
   local("python manage.py migrate %s" %(django_settings))
 
-@task
 def deletedb(role = "action", name = "webapp"):
   """
   Drop postgres database.
@@ -47,35 +77,35 @@ def gresdb(role = "action", name = "webapp", s = "p"):
   deletedb(role = role, name = name.lower())
   createdb(role = role, name = name.lower(), s = s)
 
-@task
-def run(port = 8888):
+def django_server():
   """
   Run the Django dev server.
   """
-  local("python manage.py runserver 0.0.0.0:%s --settings=webapp.settings.dev" %(port))
+  services("start")
+  local("python manage.py runserver 0.0.0.0:$PORT")
 
-@task
-def runp(port = 8888):
+def gunicorn_server():
   """
-  Run the Django server with production settings.
+  Run the Gunicorn web server.
   """
-  local("python manage.py runserver 0.0.0.0:%s --settings=webapp.settings.prod" %(port))
-
-@task
-def gun(host = "0.0.0.0", port = "8888"):
-  """
-  Run Gunicorn web server.
-  """
-  local("gunicorn -b %s:%s --env DJANGO_SETTINGS_MODULE=webapp.settings.dev webapp.wsgi" %(host, port))
-
-@task
-def gunp(host = "0.0.0.0", port = "8888"):
-  """
-  Run Gunicorn web server with production settings.
-  """
-  local("gunicorn -b %s:%s --env DJANGO_SETTINGS_MODULE=webapp.settings.prod webapp.wsgi" %(host, port))
+  services("start")
+  local("gunicorn --bind 0.0.0.0:$PORT webapp.wsgi")
 
 @task
 def clean():     
   """Remove all the .pyc files"""
   local("find . -name '*.pyc' -print0|xargs -0 rm", capture=False)
+
+@task
+def run():
+  """
+  Run the Django dev server.
+  """
+  local("honcho run fab django_server")
+
+@task
+def gun():
+  """
+  Run the Gunicorn web server.
+  """
+  local("honcho run fab gunicorn_server")

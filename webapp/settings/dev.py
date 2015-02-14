@@ -3,8 +3,8 @@ Django development settings.
 """
 
 from base import *
-
 import os
+
 
 # --- Debug Settings ---
 DEBUG = TEMPLATE_DEBUG = True
