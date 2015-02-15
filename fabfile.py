@@ -80,7 +80,6 @@ def django_server():
   """
   Run the Django dev server.
   """
-  services("start")
   local("python manage.py runserver 0.0.0.0:$PORT")
 
 @task
@@ -88,7 +87,6 @@ def gunicorn_server():
   """
   Run the Gunicorn web server.
   """
-  services("start")
   local("gunicorn --bind 0.0.0.0:$PORT webapp.wsgi")
 
 @task
@@ -97,15 +95,19 @@ def clean():
   local("find . -name '*.pyc' -print0|xargs -0 rm", capture=False)
 
 @task
-def run():
+def run(s = "start"):
   """
   Run the Django dev server.
   """
+  if s == "start":
+    services("start")
   local("honcho run fab django_server")
 
 @task
-def gun():
+def gun(s = "start"):
   """
   Run the Gunicorn web server.
   """
+  if s == "start":
+    services("start")
   local("honcho run fab gunicorn_server")

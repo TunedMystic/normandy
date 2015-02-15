@@ -27,6 +27,17 @@ BROKER_URL = "django://"
 # --- /Celery Configuration ---
 
 
+# --- Django Faker Configuration ---
+INSTALLED_APPS += (
+  "django_faker",
+)
+
+FAKER_LOCALE = None
+
+FAKER_PROVIDERS = None
+# --- /Django Faker Configuration ---
+
+
 # --- Django-Debug-Toolbar Settings ---
 show_toolbar = lambda x: True
 
