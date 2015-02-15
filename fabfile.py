@@ -93,6 +93,9 @@ def gunicorn_server():
 def clean():     
   """Remove all the .pyc files"""
   local("find . -name '*.pyc' -print0|xargs -0 rm", capture=False)
+  local("rm -rf staticfiles/ || true")
+  local("rm -rfv logs/* || true")
+  local("rm -rf celerybeat-schedule || true")
 
 @task
 def run(s = "start"):
