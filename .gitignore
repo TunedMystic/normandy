@@ -69,3 +69,6 @@ staticfiles/
 
 # Npm
 node_modules/
+
+# Celery files
+celerybeat-schedule

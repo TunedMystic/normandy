@@ -17,6 +17,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # --- /Email Configuration ---
 
 
+# --- Celery Configuration ---
+# http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
+INSTALLED_APPS += (
+  "kombu.transport.django",
+)
+
+BROKER_URL = "django://"
+# --- /Celery Configuration ---
+
+
 # --- Django-Debug-Toolbar Settings ---
 show_toolbar = lambda x: True
 

@@ -7,6 +7,8 @@ import os
 from urlparse import urlparse
 from getenv import env
 
+REDIS_URL = env("REDISTOGO_URL", "127.0.0.1:6379")
+
 
 # --- Debug Settings ---
 DEBUG = TEMPLATE_DEBUG = False
@@ -17,6 +19,13 @@ DEBUG = TEMPLATE_DEBUG = False
 # https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
 ALLOWED_HOSTS = ['.herokuapp.com', '.nitrousbox.com', 'localhost', '127.0.0.1']
 # --- /Host Configuration
+
+
+# --- Celery Configuration ---
+# http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
+BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
+# --- /Celery Configuration ---
 
 
 # --- Email Configuration ---
@@ -50,7 +59,7 @@ DATABASES = {
 
 # --- Cache Configuration ---
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
-cacheUrl = urlparse(env("REDISTOGO_URL", "127.0.0.1:6379"))
+cacheUrl = urlparse(REDIS_URL)
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',

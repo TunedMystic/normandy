@@ -8,7 +8,8 @@ https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
 """
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "webapp.settings.prod")
+from getenv import env
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{0}'.format(env('DJANGO_SETTINGS_MODULE')))
 
 from django.core.wsgi import get_wsgi_application
 from dj_static import Cling, MediaCling

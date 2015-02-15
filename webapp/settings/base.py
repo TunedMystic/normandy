@@ -12,9 +12,22 @@ import os
 import dj_database_url
 from getenv import env
 
+TZ_LOCATION = 'America/New_York'
+
+
+# --- Celery Configuration ---
+# http://chase-seibert.github.io/blog/2010/07/09/djangocelery-quickstart-or-how-i-learned-to-stop-using-cron-and-love-celery.html
+CELERY_TIMEZONE = TZ_LOCATION
+
+CELERY_SEND_EVENTS = True
+
+CELERY_TASK_RESULT_EXPIRES =  10
+# --- /Celery Configuration ---
+
 
 # --- Project Configuration ---
 PROJECT_NAME = "Webapp"
+
 PROJECT_DOMAIN = "%s.com" %(PROJECT_NAME.lower())
 # --- /Project Configuration ---
 
@@ -157,7 +170,7 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = TZ_LOCATION
 
 USE_I18N = True
 
